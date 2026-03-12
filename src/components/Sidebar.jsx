@@ -5,13 +5,16 @@ import {
     HiOutlineUserAdd,
     HiOutlineChartBar,
     HiOutlineX,
+    HiOutlineOfficeBuilding,
 } from 'react-icons/hi'
 
 const navItems = [
     { to: '/', icon: HiOutlineHome, label: 'Dashboard' },
     { to: '/students', icon: HiOutlineUsers, label: 'Students' },
     { to: '/students/new', icon: HiOutlineUserAdd, label: 'Add Student' },
+    { to: '/departments', icon: HiOutlineOfficeBuilding, label: 'Departments' },
 ]
+
 
 export default function Sidebar({ open, onClose }) {
     return (
