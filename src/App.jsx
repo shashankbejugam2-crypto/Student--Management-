@@ -9,6 +9,9 @@ import DashboardPage from './pages/DashboardPage'
 import StudentListPage from './pages/StudentListPage'
 import StudentFormPage from './pages/StudentFormPage'
 import StudentDetailPage from './pages/StudentDetailPage'
+import DepartmentsListPage from './pages/DepartmentsListPage'
+import CreateDepartmentPage from './pages/DepartmentFormPage'
+
 
 function AppLayout() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -28,6 +31,10 @@ function AppLayout() {
                         <Route path="/students/new" element={<StudentFormPage />} />
                         <Route path="/students/edit/:id" element={<StudentFormPage />} />
                         <Route path="/students/:id" element={<StudentDetailPage />} />
+                        <Route path="/departments" element={<DepartmentsListPage />} />
+                        <Route path="/departments/new" element={<CreateDepartmentPage />} />
+                        <Route path="/departments/edit/:id" element={<CreateDepartmentPage />} />
+
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </main>
@@ -35,6 +42,7 @@ function AppLayout() {
         </div>
     )
 }
+
 
 export default function App() {
     const { isAuthenticated, loading } = useAuth()

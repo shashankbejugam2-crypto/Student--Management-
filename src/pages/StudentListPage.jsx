@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { studentApi } from '../api/studentApi'
+import { departmentApi } from '../api/departmentApi'
 import StudentCard from '../components/StudentCard'
 import ConfirmModal from '../components/ConfirmModal'
 import {
@@ -14,6 +15,7 @@ import toast from 'react-hot-toast'
 
 export default function StudentListPage() {
     const [students, setStudents] = useState([])
+    const [departments, setDepartments] = useState([])
     const [loading, setLoading] = useState(true)
     const [search, setSearch] = useState('')
     const [filterDept, setFilterDept] = useState('')
@@ -21,23 +23,26 @@ export default function StudentListPage() {
     const [viewMode, setViewMode] = useState('grid') // grid | list
     const [deleteTarget, setDeleteTarget] = useState(null)
 
-    const departments = ['Computer Science', 'Electronics', 'Mechanical', 'Civil', 'Electrical']
-
     useEffect(() => {
-        loadStudents()
+        loadData()
     }, [])
 
-    const loadStudents = async () => {
+    const loadData = async () => {
         try {
             setLoading(true)
-            const res = await studentApi.getAll()
-            setStudents(res.data)
+            const [studentsRes, deptsRes] = await Promise.all([
+                studentApi.getAll(),
+                departmentApi.getAll()
+            ])
+            setStudents(studentsRes.data)
+            setDepartments(deptsRes.data)
         } catch (err) {
-            toast.error('Failed to load students')
+            toast.error('Failed to load data')
         } finally {
             setLoading(false)
         }
     }
+
 
     const handleDelete = async () => {
         if (!deleteTarget) return
@@ -118,10 +123,11 @@ export default function StudentListPage() {
                             >
                                 <option value="">All Departments</option>
                                 {departments.map((d) => (
-                                    <option key={d} value={d}>
-                                        {d}
+                                    <option key={d.id} value={d.name}>
+                                        {d.name}
                                     </option>
                                 ))}
+
                             </select>
                         </div>
 

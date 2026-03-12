@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { studentApi } from '../api/studentApi'
+import { departmentApi } from '../api/departmentApi'
 import { HiOutlineArrowLeft, HiOutlineSave } from 'react-icons/hi'
 import toast from 'react-hot-toast'
 
-const DEPARTMENTS = ['Computer Science', 'Electronics', 'Mechanical', 'Civil', 'Electrical']
 const YEARS = [1, 2, 3, 4]
 
 const emptyForm = {
@@ -50,36 +50,45 @@ export default function StudentFormPage() {
     const [form, setForm] = useState(emptyForm)
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
-    const [fetching, setFetching] = useState(isEdit)
+    const [fetching, setFetching] = useState(true)
+    const [departments, setDepartments] = useState([])
 
     useEffect(() => {
-        if (isEdit) {
-            loadStudent()
-        }
+        loadInitialData()
     }, [id])
 
-    const loadStudent = async () => {
+    const loadInitialData = async () => {
         try {
-            const res = await studentApi.getById(id)
-            setForm({
-                name: res.data.name || '',
-                email: res.data.email || '',
-                phone: res.data.phone || '',
-                department: res.data.department || '',
-                year: res.data.year || '',
-                enrollmentNo: res.data.enrollmentNo || '',
-                address: res.data.address || '',
-                dob: res.data.dob || '',
-                gender: res.data.gender || '',
-                status: res.data.status || 'Active',
-            })
-        } catch {
-            toast.error('Student not found')
-            navigate('/students')
+            setFetching(true)
+            const [deptsRes] = await Promise.all([
+                departmentApi.getAll(),
+                isEdit ? studentApi.getById(id) : Promise.resolve(null)
+            ])
+
+            setDepartments(deptsRes.data)
+
+            if (isEdit && deptsRes.data) {
+                const res = await studentApi.getById(id)
+                setForm({
+                    name: res.data.name || '',
+                    email: res.data.email || '',
+                    phone: res.data.phone || '',
+                    department: res.data.department || '',
+                    year: res.data.year || '',
+                    enrollmentNo: res.data.enrollmentNo || '',
+                    address: res.data.address || '',
+                    dob: res.data.dob || '',
+                    gender: res.data.gender || '',
+                    status: res.data.status || 'Active',
+                })
+            }
+        } catch (err) {
+            toast.error('Failed to load initial data')
         } finally {
             setFetching(false)
         }
     }
+
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -244,12 +253,13 @@ export default function StudentFormPage() {
                                     }`}
                             >
                                 <option value="">Select department</option>
-                                {DEPARTMENTS.map((d) => (
-                                    <option key={d} value={d}>
-                                        {d}
+                                {departments.map((d) => (
+                                    <option key={d.id} value={d.name}>
+                                        {d.name} ({d.code})
                                     </option>
                                 ))}
                             </select>
+
                             {errors.department && (
                                 <p className="text-xs text-red-400 mt-1">{errors.department}</p>
                             )}
