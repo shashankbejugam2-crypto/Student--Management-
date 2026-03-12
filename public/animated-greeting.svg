@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#9333ea" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Glowing background circle -->
+  <circle cx="200" cy="200" r="150" fill="url(#grad)" opacity="0.2">
+    <animate attributeName="r" values="140;160;140" dur="3s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.1;0.3;0.1" dur="3s" repeatCount="indefinite" />
+  </circle>
+
+  <!-- Main grouping -->
+  <g transform="translate(200, 200)">
+    <animateTransform attributeName="transform" type="translate" values="200,210; 200,190; 200,210" dur="4s" repeatCount="indefinite" />
+    
+    <!-- Diploma -->
+    <path d="M-60,-20 L40,-50 L60,20 L-40,50 Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="4"/>
+    <path d="M-40,0 L20,-20" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    <path d="M-30,15 L10,-5" stroke="#94a3b8" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- Red ribbon on diploma -->
+    <path d="M0,-10 L20,10 L15,30 L0,20 L-15,30 Z" fill="#ef4444"/>
+    <circle cx="0" cy="0" r="12" fill="#dc2626"/>
+
+    <!-- Graduation Cap -->
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0,-60; 0,-90; 0,-60" dur="3s" repeatCount="indefinite" />
+      
+      <!-- Cap base -->
+      <path d="M-50,20 L50,20 L50,40 C50,60 -50,60 -50,40 Z" fill="#1e1b4b"/>
+      <!-- Cap top -->
+      <path d="M0,-20 L-80,20 L0,60 L80,20 Z" fill="#312e81"/>
+      
+      <!-- Tassel -->
+      <g>
+         <animateTransform attributeName="transform" type="rotate" values="-5; 20; -5" dur="3s" repeatCount="indefinite" />
+         <path d="M0,20 L40,40 L45,60 L35,60 Z" fill="#f59e0b" />
+      </g>
+      
+      <circle cx="0" cy="20" r="6" fill="#f59e0b"/>
+    </g>
+  </g>
+
+  <!-- Stars / Confetti -->
+  <g fill="#fde047">
+    <circle cx="100" cy="150" r="6">
+      <animate attributeName="cy" values="150; 110; 150" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="120" r="8">
+      <animate attributeName="cy" values="120; 70; 120" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="80" cy="250" r="5">
+      <animate attributeName="cy" values="250; 200; 250" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="320" cy="280" r="7">
+      <animate attributeName="cy" values="280; 230; 280" dur="2.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="200" cy="60" r="6">
+      <animate attributeName="cy" values="60; 30; 60" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;0" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>
