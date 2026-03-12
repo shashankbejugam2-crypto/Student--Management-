@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
             };
 
             const { data } = await axios.post(
-                'http://localhost:5078/api/auth/login',
+                'https://student-management-production-165c.up.railway.app/api/auth/login',
                 { username, password },
                 config
             );
