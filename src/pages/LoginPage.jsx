@@ -61,7 +61,6 @@ export default function LoginPage() {
                     <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mb-1">
                         College Student Management
                     </h1>
-                    <p className="text-surface-400 text-sm">Sign in to manage your institution</p>
                 </div>
 
                 {/* Login Card */}
